@@ -1,0 +1,1629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BUKA SPOT — Premium Nigerian Restaurant Discovery</title>
+    <!-- Playfair Display (Display) & DM Sans (Body) -->
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      :root {
+        --bg-color: #0d0d0d;
+        --surface-color: #1a1a1a;
+        --surface-accent: #222222;
+        --primary: #f4a02a; /* Warm Amber */
+        --secondary: #c0392b; /* Pepper Red */
+        --text-main: #f5f0e8; /* Warm Off-White */
+        --text-muted: #888888;
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        --shadow-warm:
+          0 30px 60px -12px rgba(0, 0, 0, 0.5),
+          0 18px 36px -18px rgba(244, 160, 42, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+      }
+
+      /* Fixed Grain Texture Overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      h1,
+      h2,
+      h3,
+      .display-font {
+        font-family: "Playfair Display", serif;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 1.25rem;
+        }
+      }
+
+      /* --- UI COMPONENTS --- */
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.875rem 1.75rem;
+        border-radius: 2px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        gap: 0.75rem;
+        border: none;
+      }
+
+      .btn:active {
+        transform: scale(0.97) translateY(1px);
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: #0d0d0d;
+      }
+      .btn-primary:hover {
+        filter: brightness(1.05);
+        box-shadow: 0 15px 30px -10px rgba(244, 160, 42, 0.3);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline:hover {
+        background: var(--primary);
+        color: #000;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 2px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+      }
+
+      .pill-amber {
+        background: var(--primary);
+        color: #0d0d0d;
+      }
+      .pill-red {
+        background: var(--secondary);
+        color: #fff;
+      }
+
+      /* --- NAVBAR --- */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: var(--transition-smooth);
+        padding: 2rem 0;
+        border-bottom: 1px solid transparent;
+      }
+
+      nav.scrolled {
+        padding: 1.25rem 0;
+        background: rgba(13, 13, 13, 0.85);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      }
+
+      .nav-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+      }
+
+      .nav-links a {
+        color: var(--text-main);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        opacity: 0.8;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-links a:hover {
+        opacity: 1;
+        color: var(--primary);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      /* --- HERO --- */
+      .hero {
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-top: 100px;
+        overflow: hidden;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 40%;
+        left: 20%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(244, 160, 42, 0.08) 0%,
+          rgba(13, 13, 13, 0) 70%
+        );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .hero-text h1 {
+        font-size: clamp(3.5rem, 8vw, 6rem);
+        line-height: 0.95;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-text p {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        max-width: 50ch;
+      }
+
+      .search-container {
+        position: relative;
+        max-width: 600px;
+      }
+
+      .search-input {
+        width: 100%;
+        background: var(--surface-color);
+        border: 1px solid var(--glass-border);
+        padding: 1.25rem 1.5rem;
+        padding-right: 120px;
+        border-radius: 4px;
+        color: var(--text-main);
+        font-size: 1rem;
+        outline: none;
+        transition: var(--transition-smooth);
+      }
+
+      .search-input:focus {
+        border-color: var(--primary);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        bottom: 8px;
+        background: var(--primary);
+        color: #000;
+        padding: 0 1.5rem;
+        border-radius: 2px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+      }
+
+      .hero-collage {
+        position: relative;
+        height: 500px;
+      }
+
+      .collage-img {
+        position: absolute;
+        border-radius: 4px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        background: var(--surface-color);
+        overflow: hidden;
+        border: 4px solid var(--surface-color);
+      }
+
+      .img-1 {
+        width: 300px;
+        height: 380px;
+        z-index: 3;
+        top: 0;
+        left: 10%;
+        transform: rotate(-3deg);
+      }
+      .img-2 {
+        width: 260px;
+        height: 320px;
+        z-index: 2;
+        bottom: 0;
+        right: 0;
+        transform: rotate(5deg);
+      }
+      .img-3 {
+        width: 220px;
+        height: 260px;
+        z-index: 1;
+        top: 20%;
+        right: 10%;
+        transform: rotate(12deg);
+        opacity: 0.6;
+      }
+
+      /* --- SECTIONS --- */
+      section {
+        padding: 8rem 0;
+      }
+
+      .section-header {
+        margin-bottom: 4rem;
+      }
+
+      .section-tag {
+        color: var(--primary);
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      /* --- TRENDING ROWS --- */
+      .trending-wrapper {
+        margin-right: -2rem;
+        overflow: hidden;
+      }
+
+      .trending-scroll {
+        display: flex;
+        gap: 2rem;
+        overflow-x: scroll;
+        padding: 1rem 0;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        cursor: grab;
+      }
+
+      .trending-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .dish-card {
+        min-width: 280px;
+        background: var(--surface-color);
+        border-radius: 4px;
+        overflow: hidden;
+        transition: var(--transition-smooth);
+      }
+
+      .dish-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-warm);
+      }
+
+      .dish-img {
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .dish-info {
+        padding: 1.5rem;
+      }
+
+      /* --- ASYMMETRIC GRID --- */
+      .restaurant-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        grid-auto-rows: 400px;
+        gap: 2rem;
+      }
+
+      .res-card {
+        position: relative;
+        background: var(--surface-color);
+        border-radius: 4px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition-smooth);
+      }
+
+      .res-card:nth-child(2),
+      .res-card:nth-child(5) {
+        grid-row: span 1.2;
+      }
+      .res-card:nth-child(1),
+      .res-card:nth-child(6) {
+        grid-column: span 1;
+      }
+
+      .res-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-warm);
+      }
+
+      .res-img-wrap {
+        height: 60%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .res-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .res-card:hover .res-img {
+        transform: scale(1.05);
+      }
+
+      .res-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      /* --- HOW IT WORKS --- */
+      .how-section {
+        background: #111;
+      }
+
+      .how-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 6rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .how-step {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: var(--transition-smooth);
+      }
+
+      .how-step.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .how-step:nth-child(even) {
+        flex-direction: row-reverse;
+        text-align: right;
+      }
+
+      .step-num {
+        font-size: 8rem;
+        color: var(--primary);
+        opacity: 0.15;
+        line-height: 1;
+        font-family: "Playfair Display", serif;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        padding: 6rem 0 2rem;
+        border-top: 1px solid var(--glass-border);
+      }
+
+      /* --- SPAN / PROFILE --- */
+      #page-target {
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+
+      .page-transition {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      /* --- TOAST & MODAL --- */
+      #toast-container {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .toast {
+        background: var(--surface-accent);
+        border-left: 4px solid var(--primary);
+        padding: 1rem 1.5rem;
+        border-radius: 4px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        animation: slideIn 0.3s forwards;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Responsive Fallbacks */
+      @media (max-width: 1024px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-collage {
+          display: none;
+        }
+        .hero-text p {
+          margin: 0 auto 2.5rem;
+        }
+        .search-container {
+          margin: 0 auto;
+        }
+        .restaurant-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .restaurant-grid {
+          grid-template-columns: 1fr;
+          grid-auto-rows: auto;
+        }
+        .nav-links {
+          display: none;
+        }
+        .how-step {
+          flex-direction: column !important;
+          text-align: center !important;
+        }
+        .step-num {
+          font-size: 5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar">
+      <div class="container nav-wrapper">
+        <a href="#" class="logo display-font" onclick="navigate('home')"
+          >BUKA</a
+        >
+        <div class="nav-links">
+          <a href="#explore">Explore</a>
+          <a href="#trending">Top Rated</a>
+          <a href="#about">About</a>
+        </div>
+        <div class="nav-actions">
+          <i
+            data-lucide="search"
+            style="width: 20px; opacity: 0.7; cursor: pointer"
+          ></i>
+          <a
+            href="#"
+            class="btn btn-outline"
+            style="font-size: 0.8rem; padding: 0.5rem 1rem"
+            >List Your Restaurant</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <div id="page-target">
+      <!-- Content injected by JS -->
+    </div>
+
+    <footer>
+      <div class="container">
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+          "
+        >
+          <div>
+            <h2
+              class="display-font"
+              style="color: var(--primary); margin-bottom: 1rem"
+            >
+              BUKA
+            </h2>
+            <p style="color: var(--text-muted); max-width: 300px">
+              Every buka. Every chop. One platform. Discovering the soul of
+              Nigerian street food.
+            </p>
+          </div>
+          <div>
+            <h4
+              style="
+                margin-bottom: 1.5rem;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+              "
+            >
+              Company
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem">
+              <a
+                href="#"
+                style="
+                  color: var(--text-muted);
+                  text-decoration: none;
+                  font-size: 0.9rem;
+                "
+                >About Us</a
+              >
+              <a
+                href="#"
+                style="
+                  color: var(--text-muted);
+                  text-decoration: none;
+                  font-size: 0.9rem;
+                "
+                >Join the Team</a
+              >
+              <a
+                href="#"
+                style="
+                  color: var(--text-muted);
+                  text-decoration: none;
+                  font-size: 0.9rem;
+                "
+                >Press</a
+              >
+            </div>
+          </div>
+          <div>
+            <h4
+              style="
+                margin-bottom: 1.5rem;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+              "
+            >
+              Discover
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem">
+              <a
+                href="#"
+                style="
+                  color: var(--text-muted);
+                  text-decoration: none;
+                  font-size: 0.9rem;
+                "
+                >Add Restaurant</a
+              >
+              <a
+                href="#"
+                style="
+                  color: var(--text-muted);
+                  text-decoration: none;
+                  font-size: 0.9rem;
+                "
+                >Food Trends</a
+              >
+              <a
+                href="#"
+                style="
+                  color: var(--text-muted);
+                  text-decoration: none;
+                  font-size: 0.9rem;
+                "
+                >Safety Guidelines</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+          "
+        >
+          <p>© 2025 BUKA. Built with love in Nigeria</p>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <svg width="24" height="16" viewBox="0 0 3 2">
+              <rect width="1" height="2" fill="#008751" />
+              <rect x="1" width="1" height="2" fill="#FFF" />
+              <rect x="2" width="1" height="2" fill="#008751" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="toast-container"></div>
+
+    <script>
+      // --- MOCK DATA ---
+      const restaurants = [
+        {
+          id: 1,
+          name: "Iya Basira's Kitchen",
+          cuisine: "Yoruba · Local",
+          rating: 4.8,
+          reviewCount: 312,
+          location: "Surulere, Lagos",
+          description:
+            "Home-cooked amala and gbegiri that takes you straight back to your grandmother's yard.",
+          coverImage:
+            "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?w=800&h=500&fit=crop",
+          isOpen: true,
+          phone: "+234 803 471 2918",
+          whatsapp: "2348034712918",
+          instagram: "iyabasiras",
+          hours: {
+            Mon: "7am–9pm",
+            Tue: "7am–9pm",
+            Wed: "7am–9pm",
+            Thu: "7am–9pm",
+            Fri: "7am–10pm",
+            Sat: "8am–10pm",
+            Sun: "Closed",
+          },
+          about:
+            "Family-run for over 22 years, Iya Basira's Kitchen has fed three generations of Surulere.",
+          menu: [
+            {
+              name: "Amala & Gbegiri",
+              desc: "Smooth yam flour with bean soup and ewedu",
+              price: 2500,
+              image:
+                "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Eba & Egusi",
+              desc: "Cassava with rich melon seed soup",
+              price: 2200,
+              image:
+                "https://images.pexels.com/photos/1099687/pexels-photo-1099687.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Pepper Soup",
+              desc: "Spiced goat meat broth, served hot",
+              price: 3800,
+              image:
+                "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Tunde Adeyemi",
+              rating: 5,
+              date: "Mar 2025",
+              text: "The amala here is not a joke.",
+            },
+            {
+              name: "Ngozi Okafor",
+              rating: 5,
+              date: "Feb 2025",
+              text: "Best egusi in all of Lagos.",
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: "Kilimanjaro Heights",
+          cuisine: "Continental · Nigerian",
+          rating: 4.3,
+          reviewCount: 1547,
+          location: "Maitama, Abuja",
+          description:
+            "Executive dining featuring Northern delicacies and western cuisine.",
+          coverImage:
+            "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?w=800&h=500&fit=crop",
+          isOpen: true,
+          phone: "+234 901 000 1111",
+          whatsapp: "2349010001111",
+          instagram: "kilimanjarong",
+          hours: {
+            Mon: "8am–10pm",
+            Tue: "8am–10pm",
+            Wed: "8am–10pm",
+            Thu: "8am–10pm",
+            Fri: "8am–11pm",
+            Sat: "9am–11pm",
+            Sun: "12pm–9pm",
+          },
+          about:
+            "Located in the heart of Maitama, we offer a serene environment for business lunches.",
+          menu: [
+            {
+              name: "Masa & Suya",
+              desc: "Northern rice cakes with spiced beef",
+              price: 3200,
+              image:
+                "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Grill Platter",
+              desc: "Assorted meats with yam fries",
+              price: 7500,
+              image:
+                "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Ahmed Musa",
+              rating: 4,
+              date: "Jan 2025",
+              text: "The Masa is authentic.",
+            },
+          ],
+        },
+        {
+          id: 3,
+          name: "The Garden City Spot",
+          cuisine: "Seafood · Rivers",
+          rating: 4.6,
+          reviewCount: 890,
+          location: "GRA Phase II, Port Harcourt",
+          description:
+            "Authentic Bole and roasted fish with signature spicy sauce.",
+          coverImage:
+            "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=800&h=500&fit=crop",
+          isOpen: false,
+          phone: "+234 705 999 0000",
+          hours: { Mon: "11am–10pm", Sun: "1pm–8pm" },
+          about: "If it's not from the Garden City, it's not Bole.",
+          menu: [
+            {
+              name: "Bole & Fish",
+              desc: "Roasted plantain with croaker fish",
+              price: 4500,
+              image:
+                "https://images.pexels.com/photos/1099687/pexels-photo-1099687.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Native Soup",
+              desc: "Fresh seafood in thickened broth",
+              price: 6000,
+              image:
+                "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Gift Amadi",
+              rating: 5,
+              date: "Feb 2025",
+              text: "Best roasted fish in PH.",
+            },
+          ],
+        },
+        {
+          id: 4,
+          name: "Calabar Kitchen",
+          cuisine: "Cross River · Traditional",
+          rating: 4.7,
+          reviewCount: 520,
+          location: "Independence Layout, Enugu",
+          description: "The home of Edikang Ikong and Afang soup.",
+          coverImage:
+            "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?w=800&h=500&fit=crop",
+          isOpen: true,
+          phone: "+234 812 345 6789",
+          hours: { Mon: "9am–9pm", Sun: "Closed" },
+          about: "We bring authentic Calabar flavors to Enugu.",
+          menu: [
+            {
+              name: "Afang Soup",
+              desc: "Traditional vegetable soup with periwinkles",
+              price: 5000,
+              image:
+                "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Edikang Ikong",
+              desc: "Rich mixed vegetable soup",
+              price: 5500,
+              image:
+                "https://images.pexels.com/photos/1099687/pexels-photo-1099687.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Joy Okoro",
+              rating: 5,
+              date: "Mar 2025",
+              text: "Reminds me of home.",
+            },
+          ],
+        },
+        {
+          id: 5,
+          name: "Benin Heritage Buka",
+          cuisine: "Edo · Local",
+          rating: 4.2,
+          reviewCount: 245,
+          location: "Ugbowo, Benin City",
+          description: "World famous Black Soup and pounded yam.",
+          coverImage:
+            "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?w=800&h=500&fit=crop",
+          isOpen: true,
+          phone: "+234 809 111 2222",
+          hours: { Mon: "8am–8pm" },
+          about: "Specializing in Owo and Black Soup for over a decade.",
+          menu: [
+            {
+              name: "Black Soup",
+              desc: "Traditional Edo herb soup",
+              price: 2800,
+              image:
+                "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Owo Soup",
+              desc: "Yellow soup with palm oil and ash water",
+              price: 3000,
+              image:
+                "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Osas Ighodalo",
+              rating: 4,
+              date: "Dec 2024",
+              text: "Black soup was spot on.",
+            },
+          ],
+        },
+        {
+          id: 6,
+          name: "Amala Skylark",
+          cuisine: "Ibadan · Local",
+          rating: 4.9,
+          reviewCount: 2100,
+          location: "Bodija, Ibadan",
+          description: "The legendary spot for Amala and Abula.",
+          coverImage:
+            "https://images.pexels.com/photos/1099687/pexels-photo-1099687.jpeg?w=800&h=500&fit=crop",
+          isOpen: true,
+          phone: "+234 811 000 9999",
+          hours: { Mon: "6am–10pm" },
+          about: "Ibadan's number one amala joint.",
+          menu: [
+            {
+              name: "Abula Special",
+              desc: "Gbegiri, Ewedu and Omi-Obe mix",
+              price: 1800,
+              image:
+                "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Efo Riro",
+              desc: "Rich spinach stew",
+              price: 2500,
+              image:
+                "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Kolawole J.",
+              rating: 5,
+              date: "Feb 2025",
+              text: "The ewedu is so fresh.",
+            },
+          ],
+        },
+        {
+          id: 7,
+          name: "Kano Spice House",
+          cuisine: "Hausa · Spices",
+          rating: 4.5,
+          reviewCount: 450,
+          location: "Nassarawa, Kano",
+          description: "The standard for Tuwo Shinkafa and Miyan Kuka.",
+          coverImage:
+            "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=800&h=500&fit=crop",
+          isOpen: true,
+          phone: "+234 701 555 6666",
+          hours: { Mon: "9am–9pm" },
+          about: "Preserving the spice heritage of Kano.",
+          menu: [
+            {
+              name: "Tuwo Shinkafa",
+              desc: "Mashed rice balls with Miyan Kuka",
+              price: 2000,
+              image:
+                "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Suya Platter",
+              desc: "Yaji-spiced beef with onions",
+              price: 4000,
+              image:
+                "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Umar Bashir",
+              rating: 5,
+              date: "Jan 2025",
+              text: "True Kano taste.",
+            },
+          ],
+        },
+        {
+          id: 8,
+          name: "Delta Delicacies",
+          cuisine: "Delta · Local",
+          rating: 4.4,
+          reviewCount: 380,
+          location: "Asaba, Delta",
+          description: "Banga Soup and Starch like you've never had it.",
+          coverImage:
+            "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=800&h=500&fit=crop",
+          isOpen: true,
+          phone: "+234 815 777 8888",
+          hours: { Mon: "10am–9pm" },
+          about: "The pride of Delta with hand-poured palm nut oil.",
+          menu: [
+            {
+              name: "Banga & Starch",
+              desc: "Palm nut soup with yellow starch",
+              price: 4500,
+              image:
+                "https://images.pexels.com/photos/1099687/pexels-photo-1099687.jpeg?w=400&h=300&fit=crop",
+            },
+            {
+              name: "Peppered Snail",
+              desc: "Jumbo snails in spicy pepper sauce",
+              price: 8000,
+              image:
+                "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=400&h=300&fit=crop",
+            },
+          ],
+          reviews: [
+            {
+              name: "Efe Mary",
+              rating: 5,
+              date: "Mar 2025",
+              text: "The snails are huge!",
+            },
+          ],
+        },
+      ];
+      const trendingDishes = [
+        {
+          name: "Suya Platter",
+          restaurant: "Mallam Dantata Grill",
+          price: "₦3,500",
+          likes: 847,
+          image:
+            "https://imgs.search.brave.com/vrNBWZq6ToFjKA0CCamecAgHBXjExSNLtyYm2fT0pu8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWxscmVjaXBlcy5j/b20vdGhtYi9rTHp0/NFQ4bmxVdHlPWUhF/MlNSZUJPVUh4YnM9/LzI4MngxODgvZmls/dGVyczpub191cHNj/YWxlKCk6bWF4X2J5/dGVzKDE1MDAwMCk6/c3RyaXBfaWNjKCk6/Zm9ybWF0KHdlYnAp/LzQ2MTk3ODktbmln/ZXJpYW4tc3V5YS1B/dnJpbGUtTmdvbmdh/LTR4My0xLTUyMWM0/NmUwMzViMTQ5MTI4/NTc3YTI1MzY1MTcz/Y2FiLmpwZw",
+        },
+        {
+          name: "Jollof Rice",
+          restaurant: "Party Jollof Hub",
+          price: "₦2,800",
+          likes: 1205,
+          image:
+            "https://imgs.search.brave.com/RmKtaowR2-d_6ach3cFEcZfcxWN4iC_bJFncODTYufc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9yb290/ZWRtYW1hYmxvZy5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjUvMTIvZmVhdHVy/ZWQtcGljdHVyZS5q/cGc",
+        },
+        {
+          name: "Puff Puff",
+          restaurant: "The Chop Shop",
+          price: "₦1,000",
+          likes: 532,
+          image:
+            "https://imgs.search.brave.com/xohJuUgg96mZjExzBTksmCpebvFMJkQ3aCvaOSToviw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWZyaWNhbmJpdGVz/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMy8wOS9QdWZm/LVB1ZmYtQS5qcGVn",
+        },
+        {
+          name: "Asun",
+          restaurant: "Pepper Dem Grill",
+          price: "₦4,200",
+          likes: 921,
+          image:
+            "https://imgs.search.brave.com/QPwPiG68PCcI3O3NJZi28XcWGlT4EsLQTh5LuEFTRy8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/d2l0aGlubmlnZXJp/YS5jb20vcGllY2Uv/d3AtY29udGVudC91/cGxvYWRzL3NpdGVz/LzkvMjAyMy8xMi9t/YXhyZXNkZWZhdWx0/LTEtNzUweDM3NS5q/cGc",
+        },
+        {
+          name: "Banga Soup",
+          restaurant: "Delta Heritage",
+          price: "₦5,500",
+          likes: 746,
+          image:
+            "https://imgs.search.brave.com/RGIkZ1DY8LWcpRA-yGIegDwBNpgUfGkeLVltWxdW9bc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mYXJt/aW5nZmFybWVyc2Zh/cm1zLmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyNC8wNy9B/dGFtYS1Tb3VwLmpw/Zw",
+        },
+        {
+          name: "Akara",
+          restaurant: "Breakfast Best",
+          price: "₦500",
+          likes: 641,
+          image:
+            "https://www.myactivekitchen.com/wp-content/uploads/2015/04/akara-image-4.jpg",
+        },
+      ];
+
+      // --- JS ARCHITECTURE ---
+      const pageTarget = document.getElementById("page-target");
+      const navbar = document.getElementById("navbar");
+
+      // Utils
+      const showToast = (message) => {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerHTML = `<i data-lucide="check-circle" style="color: var(--primary)"></i> <span>${message}</span>`;
+        container.appendChild(toast);
+        lucide.createIcons();
+
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.transform = "translateX(20px)";
+          setTimeout(() => toast.remove(), 300);
+        }, 2500);
+      };
+
+      const navigate = (view, id = null) => {
+        pageTarget.classList.add("page-transition");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        setTimeout(() => {
+          if (view === "home") renderHome();
+          else if (view === "profile") renderProfile(id);
+
+          pageTarget.classList.remove("page-transition");
+          lucide.createIcons();
+        }, 400);
+      };
+
+      // UI Handlers
+      const enableDragScroll = (el) => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        el.addEventListener("mousedown", (e) => {
+          isDown = true;
+          el.style.cursor = "grabbing";
+          startX = e.pageX - el.offsetLeft;
+          scrollLeft = el.scrollLeft;
+        });
+        el.addEventListener("mouseleave", () => {
+          isDown = false;
+          el.style.cursor = "grab";
+        });
+        el.addEventListener("mouseup", () => {
+          isDown = false;
+          el.style.cursor = "grab";
+        });
+        el.addEventListener("mousemove", (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - el.offsetLeft;
+          const walk = (x - startX) * 2;
+          el.scrollLeft = scrollLeft - walk;
+        });
+      };
+
+      const renderHome = () => {
+        pageTarget.innerHTML = `
+                <section class="hero">
+                    <div class="container hero-grid">
+                        <div class="hero-text">
+                            <span class="" style="padding: 0.4rem 0.8rem; margin-bottom: 2rem; display: inline-block;">UNIBEN</span>
+                            <h1 class="display-font">Your Favourite <span style="display: block; color: var(--primary)">Buka SPOT</span>, Found.</h1>
+                            <p style="font-size: 1.2rem; line-height: 1.7; margin-bottom: 3rem;">Discover the best local restaurants, street food hubs, and hidden chops near you. Authentic flavours curated for the modern palate.</p>
+                            <div class="search-container" style="background: var(--surface-color); border: 1px solid var(--glass-border); padding: 0.5rem; border-radius: 2px;">
+                                <input type="text" id="main-search" class="search-input" style="border:none; background:transparent;" placeholder="Search amala, suya, or your local junction..." oninput="handleSearch(this.value)">
+                                <button class="search-btn" style="border-radius: 0;">Search</button>
+                            </div>
+                        </div>
+                        <div class="hero-collage">
+                            <div class="collage-img img-1" style="border: 6px solid var(--surface-color);"><img src="https://imgs.search.brave.com/Mq9hXjbd9zKZ_WWnx0yFkPhGYR9t-HpbMTJFgVgRFqE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2ZjLzZj/L2NmL2ZjNmNjZjYz/MTRmMjA3MTczODQw/ZTllMzY4Y2MyMGIw/LmpwZw" style="width:100%; height:100%; object-fit:cover;"></div>
+                            <div class="collage-img img-2" style="border: 6px solid var(--surface-color);"><img src="https://imgs.search.brave.com/aq31E7A6_CUc558zuYg0UUKtuyK6jchG6wrlZdygk48/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2U4L2U4/L2MwL2U4ZThjMDc3/MzdlYWQ2YTZmODgw/NmE4NDNiZWM4NTMw/LmpwZw" style="width:100%; height:100%; object-fit:cover;"></div>
+                            <div class="collage-img img-3" style="border: 6px solid var(--surface-color);"><img src="https://picsum.photos/seed/egusi/220/260" style="width:100%; height:100%; object-fit:cover;"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="trending" class="container">
+                    <div class="section-header">
+                        <span class="section-tag">TRENDING NOW</span>
+                        <h2 class="display-font" style="font-size: 3rem;">Popular on the Streets</h2>
+                    </div>
+                    <div class="trending-wrapper">
+                        <div class="trending-scroll" id="trending-scroll">
+                            ${trendingDishes
+                              .map(
+                                (dish) => `
+                                <div class="dish-card">
+                                    <div class="dish-img" style="background-image: url('${dish.image}')"></div>
+                                    <div class="dish-info">
+                                        <h4 style="margin-bottom: 0.25rem;">${dish.name}</h4>
+                                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">${dish.restaurant}</p>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="color: var(--primary); font-weight: 700;">${dish.price}</span>
+                                            <div style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; opacity: 0.7;">
+                                                <i data-lucide="heart" style="width: 14px; fill: var(--secondary); color: var(--secondary)"></i>
+                                                <span>${dish.likes}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `,
+                              )
+                              .join("")}
+                        </div>
+                    </div>
+                </section>
+
+                <section id="explore" class="container">
+                    <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <span class="section-tag">CURATED BUKAS</span>
+                            <h2 class="display-font" style="font-size: 3rem;">Top Bukas Near You</h2>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-outline" style="border-radius: 50%; width: 48px; height: 48px; padding: 0;"><i data-lucide="chevron-left"></i></button>
+                            <button class="btn btn-outline" style="border-radius: 50%; width: 48px; height: 48px; padding: 0;"><i data-lucide="chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="restaurant-grid" id="res-grid">
+                        ${restaurants.map((res) => renderResCard(res)).join("")}
+                    </div>
+                </section>
+
+                <section class="how-section">
+                    <div class="container">
+                        <div class="section-header" style="text-align: center;">
+                            <h2 class="display-font" style="font-size: 3.5rem;">The Buka Journey</h2>
+                        </div>
+                        <div class="how-grid">
+                            <div class="how-step">
+                                <span class="step-num">01</span>
+                                <div>
+                                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">Discover</h3>
+                                    <p style="color: var(--text-muted);">Explore highly reviewed local joints and hidden street gems you've walked past a thousand times.</p>
+                                </div>
+                            </div>
+                            <div class="how-step">
+                                <span class="step-num">02</span>
+                                <div>
+                                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">Chop Life</h3>
+                                    <p style="color: var(--text-muted);">Browse detailed menus, see real food photos from the community, and find your next favourite meal.</p>
+                                </div>
+                            </div>
+                            <div class="how-step">
+                                <span class="step-num">03</span>
+                                <div>
+                                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">Support Local</h3>
+                                    <p style="color: var(--text-muted);">Order directly or walk-in. We keep the culture alive by putting local bukats on the map.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+        enableDragScroll(document.getElementById("trending-scroll"));
+        observeSteps();
+      };
+
+      const renderResCard = (res) => `
+            <div class="res-card" onclick="navigate('profile', ${res.id})">
+                <div class="res-img-wrap">
+                    <img src="${res.coverImage}" class="res-img" alt="${res.name}">
+                    <span class="pill pill-amber" style="position: absolute; top: 1rem; right: 1rem;">${res.cuisine.split("·")[0]}</span>
+                </div>
+                <div class="res-content">
+                    <div>
+                        <h4 style="font-size: 1.25rem; margin-bottom: 0.25rem;">${res.name}</h4>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                            <div style="display: flex; gap: 2px;">
+                                ${Array(5)
+                                  .fill(0)
+                                  .map(
+                                    (_, i) =>
+                                      `<i data-lucide="star" style="width: 12px; fill: ${i < Math.floor(res.rating) ? "var(--primary)" : "transparent"}; color: var(--primary)"></i>`,
+                                  )
+                                  .join("")}
+                            </div>
+                            <span style="font-size: 0.75rem; opacity: 0.7;">${res.rating} (${res.reviewCount})</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">${res.description}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      const renderProfile = (id) => {
+        const res = restaurants.find((r) => r.id === id);
+        if (!res) return navigate("home");
+
+        pageTarget.innerHTML = `
+    <div style="background: var(--bg-color); min-height: 100vh;">
+
+      <!-- HERO -->
+      <div style="height: 500px; position: relative; overflow: hidden;">
+        <img src="${res.coverImage}" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.05); filter: brightness(0.75);">
+        
+        <!-- Gradient overlays -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.95) 100%);"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.4), transparent 60%);"></div>
+
+        <!-- Back button -->
+        <button onclick="navigate('home')" style="position: absolute; top: 1.5rem; left: 1.5rem; background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.6rem 1.2rem; border-radius: 100px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">
+          <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back
+        </button>
+
+        <!-- Open/Closed badge -->
+        <div style="position: absolute; top: 1.5rem; right: 1.5rem;">
+          <span style="
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: ${res.isOpen ? "rgba(34,197,94,0.15)" : "rgba(239,68,68,0.15)"};
+            border: 1px solid ${res.isOpen ? "rgba(34,197,94,0.4)" : "rgba(239,68,68,0.4)"};
+            color: ${res.isOpen ? "#4ade80" : "#f87171"};
+            padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 700;
+            backdrop-filter: blur(10px);">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block;"></span>
+            ${res.isOpen ? "Open Now" : "Closed"}
+          </span>
+        </div>
+
+        <!-- Restaurant name overlaid -->
+        <div class="container" style="position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 2.5rem;">
+          <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary); margin-bottom: 0.5rem; display: block;">${res.cuisine}</span>
+          <h1 class="display-font" style="font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 0.95; margin: 0 0 1.2rem; color: white; text-shadow: 0 4px 30px rgba(0,0,0,0.5);">${res.name}</h1>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.85rem;">
+            <span style="display: flex; align-items: center; gap: 0.4rem;">
+              <i data-lucide="star" style="width: 14px; height: 14px; color: var(--primary); fill: var(--primary);"></i>
+              <strong style="color: white;">${res.rating}</strong> &nbsp;(${res.reviewCount} reviews)
+            </span>
+            <span style="display: flex; align-items: center; gap: 0.4rem;">
+              <i data-lucide="map-pin" style="width: 14px; height: 14px; color: var(--primary);"></i>
+              ${res.location}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="container" style="margin-top: 2rem;">
+        <div style="display: flex; gap: 0; border-bottom: 1px solid var(--glass-border); margin-bottom: 2.5rem;">
+          ${["menu", "reviews", "about"]
+            .map(
+              (tab) => `
+            <button id="tab-${tab}" onclick="switchTab('${tab}')"
+              style="background: none; border: none; border-bottom: 2px solid ${tab === "menu" ? "var(--primary)" : "transparent"};
+              padding: 1rem 1.5rem; color: ${tab === "menu" ? "var(--primary)" : "var(--text-muted)"};
+              cursor: pointer; font-weight: 700; font-size: 0.9rem; text-transform: capitalize;
+              transition: color 0.2s; letter-spacing: 0.03em;">
+              ${tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          `,
+            )
+            .join("")}
+        </div>
+
+        <div id="tab-content" style="min-height: 400px; padding-bottom: 10rem;">
+          <!-- Tab content rendered by switchTab() -->
+        </div>
+      </div>
+    </div>
+
+    <!-- STICKY FOOTER BAR -->
+    <div style="position: fixed; bottom: 0; width: 100%; background: rgba(15,15,15,0.85); backdrop-filter: blur(24px); border-top: 1px solid var(--glass-border); padding: 1rem 0; z-index: 100;">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; min-width: 0;">
+          <img src="${res.coverImage}" style="width: 44px; height: 44px; border-radius: 10px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--glass-border);">
+          <div style="min-width: 0;">
+            <div style="font-weight: 800; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${res.name}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">${res.cuisine} · ${res.isOpen ? "Open" : "Closed"}</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('${res.name}')" style="flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i> Shop With Us
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTACT MODAL -->
+    <div id="contact-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+      <div style="background: var(--surface-accent); width: 100%; max-width: 420px; border-radius: 16px; overflow: hidden; position: relative; border: 1px solid var(--glass-border);">
+        
+        <!-- Modal hero strip -->
+        <div style="height: 100px; background: linear-gradient(135deg, rgba(var(--primary-rgb, 234,179,8), 0.2), transparent); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; padding: 1.5rem;">
+          <div>
+            <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin: 0 0 0.25rem;">Contact</p>
+            <h3 class="display-font" style="font-size: 1.8rem; margin: 0; color: var(--primary);">${res.name}</h3>
+          </div>
+        </div>
+
+        <button onclick="closeModal()" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border); color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+          <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+        </button>
+
+        <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0 0 0.5rem;">Reach out directly for faster service and custom orders.</p>
+          <a href="https://wa.me/${res.whatsapp || "234"}" target="_blank" class="btn btn-outline" style="justify-content: flex-start; gap: 0.75rem;">
+            <i data-lucide="message-circle" style="width: 18px; height: 18px; color: #4ade80;"></i> Message on WhatsApp
+          </a>
+          <a href="tel:${res.phone}" class="btn btn-outline" style="justify-content: flex-start; gap: 0.75rem;">
+            <i data-lucide="phone" style="width: 18px; height: 18px; color: var(--primary);"></i> Call ${res.phone}
+          </a>
+          ${
+            res.instagram
+              ? `
+          <a href="https://instagram.com/${res.instagram}" target="_blank" class="btn btn-outline" style="justify-content: flex-start; gap: 0.75rem;">
+            <i data-lucide="instagram" style="width: 18px; height: 18px; color: #e879f9;"></i> @${res.instagram} on Instagram
+          </a>`
+              : ""
+          }
+        </div>
+      </div>
+    </div>
+  `;
+
+        window.activeResId = id;
+        switchTab("menu");
+      };
+
+      const switchTab = (tab) => {
+        const res = restaurants.find((r) => r.id === window.activeResId);
+        const content = document.getElementById("tab-content");
+        const btns = ["menu", "reviews", "about"];
+
+        btns.forEach((b) => {
+          const el = document.getElementById(`tab-${b}`);
+          if (b === tab) {
+            el.style.color = "var(--primary)";
+            el.style.borderBottom = "2px solid var(--primary)";
+          } else {
+            el.style.color = "var(--text-muted)";
+            el.style.borderBottom = "none";
+          }
+        });
+
+        if (tab === "menu") {
+          content.innerHTML = `
+                    <div style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); display: grid; gap: 2rem;">
+                        ${res.menu
+                          .map(
+                            (item) => `
+                            <div class="dish-card" style="background: var(--surface-accent);">
+                                <div class="dish-img" style="background-image: url('${item.image}')"></div>
+                                <div class="dish-info">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <h4 style="font-size: 1.1rem;">${item.name}</h4>
+                                        <span style="color: var(--primary); font-weight: 700;">₦${item.price.toLocaleString()}</span>
+                                    </div>
+                                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">${item.desc}</p>
+                                    <button class="btn btn-outline" style="width: 100%; border-color: rgba(255,255,255,0.1); color: var(--text-main);" onclick="showToast('Added to order!')">
+                                        <i data-lucide="shopping-bag" style="width: 16px;"></i> Add to Chop
+                                    </button>
+                                </div>
+                            </div>
+                        `,
+                          )
+                          .join("")}
+                    </div>
+                `;
+        } else if (tab === "reviews") {
+          content.innerHTML = `
+                    <div style="max-width: 800px; display: flex; flex-direction: column; gap: 2rem;">
+                        ${res.reviews
+                          .map(
+                            (rev, i) => `
+                            <div style="opacity: 0; transform: translateY(10px); animation: fadeIn 0.3s forwards; animation-delay: ${i * 0.1}s;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="display: flex; items: center; gap: 1rem;">
+                                        <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--surface-accent); display: flex; items: center; justify-content: center; font-weight: 700; color: var(--primary); border: 1px solid var(--primary);">
+                                            ${rev.name
+                                              .split(" ")
+                                              .map((n) => n[0])
+                                              .join("")}
+                                        </div>
+                                        <div>
+                                            <p style="font-weight: 700;">${rev.name}</p>
+                                            <p style="font-size: 0.75rem; color: var(--text-muted);">${rev.date}</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 2px;">
+                                        ${Array(5)
+                                          .fill(0)
+                                          .map(
+                                            (_, i) =>
+                                              `<i data-lucide="star" style="width: 14px; fill: ${i < rev.rating ? "var(--primary)" : "transparent"}; color: var(--primary)"></i>`,
+                                          )
+                                          .join("")}
+                                    </div>
+                                </div>
+                                <p style="color: var(--text-muted); line-height: 1.6; padding-left: 3.5rem;">"${rev.text}"</p>
+                            </div>
+                        `,
+                          )
+                          .join("")}
+                    </div>
+                `;
+        } else if (tab === "about") {
+          content.innerHTML = `
+                    <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem;">
+                        <div>
+                            <h3 class="display-font" style="font-size: 2rem; margin-bottom: 1.5rem;">Authenticity First</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.8;">${res.about}</p>
+                            <div style="display: flex; items: center; gap: 1rem; color: var(--text-muted);">
+                                <i data-lucide="map-pin" style="color: var(--primary)"></i>
+                                <span>${res.location}</span>
+                            </div>
+                        </div>
+                        <div style="background: var(--surface-accent); padding: 2rem; border-radius: 4px;">
+                            <h4 style="margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Opening Hours</h4>
+                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                ${Object.entries(res.hours)
+                                  .map(
+                                    ([day, time]) => `
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; opacity: ${day === new Date().toLocaleDateString("en-US", { weekday: "short" }) ? "1" : "0.6"}">
+                                        <span style="${day === new Date().toLocaleDateString("en-US", { weekday: "short" }) ? "color: var(--primary); font-weight: 700;" : ""}">${day}</span>
+                                        <span style="${day === new Date().toLocaleDateString("en-US", { weekday: "short" }) ? "color: var(--primary); font-weight: 700;" : ""}">${time}</span>
+                                    </div>
+                                `,
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    </div>
+                `;
+        }
+        lucide.createIcons();
+      };
+
+      const handleSearch = (query) => {
+        const grid = document.getElementById("res-grid");
+        if (!grid) return;
+
+        const q = query.toLowerCase();
+        const filtered = restaurants.filter(
+          (r) =>
+            r.name.toLowerCase().includes(q) ||
+            r.cuisine.toLowerCase().includes(q) ||
+            r.location.toLowerCase().includes(q),
+        );
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 0;">
+                        <i data-lucide="search-x" style="width: 48px; height: 48px; opacity: 0.2; margin-bottom: 1rem;"></i>
+                        <p style="color: var(--text-muted);">We couldn't find any bukats matching "${query}".</p>
+                        <button onclick="document.getElementById('main-search').value=''; handleSearch('')" style="background: none; border: none; color: var(--primary); cursor: pointer; margin-top: 1rem; text-decoration: underline;">Clear search</button>
+                    </div>
+                `;
+        } else {
+          grid.innerHTML = filtered.map((res) => renderResCard(res)).join("");
+        }
+        lucide.createIcons();
+      };
+
+      const openModal = () =>
+        (document.getElementById("contact-modal").style.display = "flex");
+      const closeModal = () =>
+        (document.getElementById("contact-modal").style.display = "none");
+
+      const observeSteps = () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) entry.target.classList.add("visible");
+            });
+          },
+          { threshold: 0.3 },
+        );
+
+        document
+          .querySelectorAll(".how-step")
+          .forEach((s) => observer.observe(s));
+      };
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) navbar.classList.add("scrolled");
+        else navbar.classList.remove("scrolled");
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderHome();
+        lucide.createIcons();
+      });
+
+      // Modal Close on backdrop
+      window.onclick = (e) => {
+        const modal = document.getElementById("contact-modal");
+        if (e.target == modal) closeModal();
+      };
+    </script>
+  </body>
+</html>
