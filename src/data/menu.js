@@ -14,11 +14,11 @@ export const menuData = {
     { name: "Nkwobi (Spiced Cow Foot)", desc: "Benin City's gift to Lagos", price: 3200, img: "https://www.jotscroll.com/forums/15/posts/113/nkwobi-how-to-prepare-nkwobi-cow-foot-.html" }
   ],
   "Small Chops": [
-    { name: "Asun (Spicy Goat Meat)", desc: "Bite-sized fire", price: 2500, img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400" },
-    { name: "Spring Rolls & Samosas", desc: "The ultimate party starter", price: 1500, img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" }
+    { name: "Asun (Spicy Goat Meat)", desc: "Bite-sized fire", price: 2500, img: "https://cheflilian.com/products/asun-spicy-goat-meat0" },
+    { name: "Spring Rolls & Samosas", desc: "The ultimate party starter", price: 1500, img: "https://www.pinterest.com/pin/samosa-and-spring-roll-making-learn-the-art-of-homemade-snacks--692428511478726439/" }
   ],
   "Drinks": [
-    { name: "Zobo (Chilled)", desc: "Hibiscus tea with a hint of ginger", price: 1000, img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" },
-    { name: "Chapman", desc: "Classic Nigerian mocktail", price: 1500, img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400" }
+    { name: "Zobo (Chilled)", desc: "Hibiscus tea with a hint of ginger", price: 1000, img: "https://imgs.search.brave.com/OfkEa0judLXLdhboks9S2fpICv6kRU1Xg5gZEMGA8jc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9hZnJv/c3V5YXBhbGFjZS5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjQvMTEvWm9iby5q/cGVn" },
+    { name: "Chapman", desc: "Classic Nigerian mocktail", price: 1500, img: "https://www.chapmansoflondon.com/blogs/news/who-invented-the-chapman-drink-the-story-behind-nigeria-s-favourite-beverage" }
   ]
 };
