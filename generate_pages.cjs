@@ -48,7 +48,7 @@ function Home() {
             <div className={styles.dishGrid}>
               {[
                 { name: "Smoky Party Jollof & Grilled Chicken", price: "₦4,500", desc: "The one that started fights at the table", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400" },
-                { name: "Nkwobi (Spiced Cow Foot)", price: "₦3,200", desc: "Benin City's gift to Lagos", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" },
+                { name: "Nkwobi (Spiced Cow Foot)", price: "₦3,200", desc: "Benin City's gift to Lagos", img: "/1499505922-a-plate-of-nkwobi.webp" },
                 { name: "Ofada Rice & Ayamase", price: "₦3,500", desc: "The OG Lagos Sunday plate", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400" }
               ].map((dish, i) => (
                 <div key={i} className={styles.dishCard}>

@@ -49,9 +49,9 @@ function Home() {
           <h2 className="font-serif text-4xl md:text-5xl text-center mb-16 text-gray-900 dark:text-white">What Lagos Is Ordering</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: "Smoky Party Jollof & Grilled Chicken", price: "₦4,500", desc: "The one that started fights at the table", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400" },
-              { name: "Nkwobi (Spiced Cow Foot)", price: "₦3,200", desc: "Benin City's gift to Lagos", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" },
-              { name: "Ofada Rice & Ayamase", price: "₦3,500", desc: "The OG Lagos Sunday plate", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400" }
+              { name: "Smoky Party Jollof & Grilled Chicken", price: "₦4,500", desc: "The one that started fights at the table", img: "/smook.webp" },
+              { name: "Nkwobi (Spiced Cow Foot)", price: "₦3,200", desc: "Benin City's gift to Lagos", img: "/1499505922-a-plate-of-nkwobi.webp" },
+              { name: "Ofada Rice & Ayamase", price: "₦3,500", desc: "The OG Lagos Sunday plate", img: "/ofada-rice-1-standard.webp" }
             ].map((dish, i) => (
               <div key={i} className="bg-surface-light dark:bg-surface-dark border border-borderc-light dark:border-borderc-dark rounded-xl overflow-hidden hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/10 transition-all group">
                 <div className="h-64 overflow-hidden">
